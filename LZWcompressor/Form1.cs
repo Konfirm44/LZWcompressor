@@ -10,7 +10,7 @@ namespace LZWcompressor
         private bool _shouldCompress;
         private WrappedController _wrappedController;
         private int _seconds;
-        private int _threads;
+
 
         public Form1()
         {
@@ -19,11 +19,8 @@ namespace LZWcompressor
             label_timer.Text = "";
             button_START.Enabled = false;
 
-            for (int i = 1; i < 65; ++i)
-            {
-                comboBox_THREADS.Items.Add(i);
-            }
-            comboBox_THREADS.SelectedIndex = 0;
+            var threads = Environment.ProcessorCount;
+            numericUpDown_THREADS.Value = threads;
         }
 
         private void AdjustOutputFileName()
@@ -85,7 +82,7 @@ namespace LZWcompressor
             progressBar.Value = 0;
             _seconds = 0;
             label_timer.Text = "0 s";
-            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_ASM.Checked, _threads);
+            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_ASM.Checked, (int)numericUpDown_THREADS.Value);
             backgroundWorker1.RunWorkerAsync();
             timer1.Start();
             timer2.Start();
@@ -147,11 +144,6 @@ namespace LZWcompressor
             }
 
             progressBar.Value = _wrappedController.getProgress();
-        }
-
-        private void comboBox_THREADS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _threads = comboBox_THREADS.SelectedIndex + 1;
         }
     }
 }
