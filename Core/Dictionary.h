@@ -25,7 +25,7 @@ public:
 
     //static void setASM(bool useASM);
 
-    unsigned short size() const {
+    size_t size() const {
         return words.size();
     }
 

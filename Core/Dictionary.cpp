@@ -2,7 +2,7 @@
 
 Dictionary::Dictionary()
 {
-    for (int i = -128; i < 128; ++i)
+    for (unsigned short i = 0; i < 256; ++i)
     {
         std::string t(1, char(i));
         words.push_back(t);
@@ -44,6 +44,8 @@ unsigned short Dictionary::code(std::string s)
     for (auto i = 0; i < words.size(); ++i)
         if (words[i] == s)
             return i;
+
+    throw 0.f;
 }
 
 std::string Dictionary::operator[](int i)
