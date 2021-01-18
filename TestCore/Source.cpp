@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include "../Core/Controller.h"
+#include "../Core/Dictionary_ASM.h"
 
 void process(bool shouldCompress, std::string file)
 {
@@ -26,8 +27,11 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "eng";
+	//std::string file = "eng";
 
-	process(1, file);
-	process(0, file);
+	//process(1, file);
+	//process(0, file);
+
+	Dictionary_ASM d;
+	d.flush();
 }

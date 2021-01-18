@@ -3,6 +3,10 @@
 
 class Dictionary_ASM : public Dictionary
 {
+private:
+    char** words;
+    unsigned wordsSize = 256;
+
 public:
     Dictionary_ASM();
 
@@ -17,5 +21,7 @@ public:
     std::string operator[](int i);
 
     size_t size() const;
+
+    ~Dictionary_ASM();
 };
 
