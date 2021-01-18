@@ -1,6 +1,7 @@
 #pragma once
-#include "Compressor.h"
-#include "Decompressor.h"
+#include "LZW.h"
+//#include "Compressor.h"
+//#include "Decompressor.h"
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -34,6 +35,4 @@ public:
 		int progress = floor(float(processedBytes_) / float(fileSize_) * 100.f);
 		return progress > 100 ? 100 : progress; 
 	}
-	
-	static int test();
 };

@@ -2,7 +2,6 @@
 
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <vector>
 
 void Controller::processFile()
@@ -17,13 +16,12 @@ void Controller::processFile()
 	const size_t bufferSize = 1 << 30;
 	char* buffer = new char[bufferSize];
 
-	LZW* translator;
+	/*LZW* translator;
 	if (shouldCompress_)
 		translator = new Compressor();
 	else
-		translator = new Decompressor();
+		translator = new Decompressor();*/
 
-	//std::stringstream outputStream;
 
 	std::string suffix = shouldCompress_ ? "_cmp" : "_decmp";
 	std::ofstream oFile(filePath_ + suffix, std::ios::binary);
@@ -43,23 +41,18 @@ void Controller::processFile()
 
 		std::vector<char> iChunk(buffer, buffer + bufferCount);
 
-		std::vector<char> oChunk = translator->processChunk(iChunk, processedBytes_);
+		//std::vector<char> oChunk = translator->processChunk(iChunk, processedBytes_);
+		std::vector<char> oChunk;
+		if (shouldCompress_)
+			oChunk = LZW::compress(iChunk, processedBytes_);
+		else
+			oChunk = LZW::decompress(iChunk, processedBytes_);
 
-		//outputStream.write(oChunk.data(), oChunk.size());
 		oFile.write(oChunk.data(), oChunk.size());
 	}
 	delete[] buffer;
-	delete translator;
+	//delete translator;
 
-	//std::string suffix = shouldCompress_ ? "_cmp" : "_decmp";
-	//std::ofstream oFile(filePath_ + suffix, std::ios::binary);
-	//if (!oFile)
-	//{
-	//	std::cerr << "Could not open output file." << std::endl;
-	//	return;
-	//}
-
-	//oFile << outputStream.rdbuf();
 	std::cout << "File processed." << std::endl;
 }
 
@@ -67,10 +60,4 @@ extern "C"
 {
 	int MyProc1(int, int);
 	int MyProc2(int);
-}
-
-int Controller::test()
-{
-	int t = MyProc2(20);
-	return t;
 }

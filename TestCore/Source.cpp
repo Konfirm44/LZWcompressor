@@ -8,8 +8,9 @@ void process(bool shouldCompress, std::string file)
 	std::string dir = "D:/ZZZ/";
 	std::string ext = shouldCompress ? ".txt" : ".txt_cmp";
 	std::string full = dir + file + ext;
+	int threads = 1;
 
-	Controller controller(full.c_str(), shouldCompress, false);
+	Controller controller(full.c_str(), shouldCompress, false, threads);
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	controller.processFile();
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();

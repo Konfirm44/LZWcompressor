@@ -2,11 +2,18 @@
 #include <vector>
 #include "Dictionary.h"
 
-class LZW
+namespace LZW
 {
-protected:
-	Dictionary dictionary_;
+	std::vector<char> compress(std::vector<char> iChunk, std::uintmax_t& processedBytes);
+	std::vector<char> decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes);
+}
 
-public:
-	virtual std::vector<char> processChunk(std::vector<char>, std::uintmax_t& processedBytes) = 0;
-};
+//class LZW
+//{
+////protected:
+////	Dictionary dictionary_;
+//
+//public:
+//	static std::vector<char> compress(std::vector<char> iChunk, std::uintmax_t& processedBytes);
+//	static std::vector<char> decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes);
+//};
