@@ -1,7 +1,5 @@
 #pragma once
 #include "LZW.h"
-//#include "Compressor.h"
-//#include "Decompressor.h"
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -24,8 +22,6 @@ public:
 	{
 		fs::path path = filePath_;
 		fileSize_ = fs::file_size(path);
-
-		//Dictionary::setASM(useASM);
 	}
 
 	void processFile();

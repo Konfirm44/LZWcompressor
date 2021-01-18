@@ -1,34 +1,21 @@
 #pragma once
-#include<string>
-#include<vector>
+#include <string>
+#include <vector>
 
 class Dictionary
 {
-private:
-	std::vector<std::string> words;
-    unsigned short indexOfLastCheckedWord_ = 0;
-    
-    //inline static bool _useASM = false;
-
 public:
-    Dictionary();
+    virtual unsigned short flush() = 0;
 
-    unsigned short flush();
+    virtual bool add(std::string s) = 0;
 
-    bool add(std::string s);
+    virtual bool contains(std::string s) = 0;
 
-    bool contains(std::string s);
+    virtual unsigned short code(std::string s) = 0;
 
-    unsigned short code(std::string s);
+    virtual std::string operator[](int i) = 0;
 
-    std::string operator[](int i);
+    virtual size_t size() const = 0;
 
-    //static void setASM(bool useASM);
-
-    size_t size() const {
-        return words.size();
-    }
-
-    const unsigned short flushCode = 65535;
+    static const unsigned short flushCode = 65535;
 };
-

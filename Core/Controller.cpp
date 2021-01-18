@@ -16,13 +16,6 @@ void Controller::processFile()
 	const size_t bufferSize = 1 << 30;
 	char* buffer = new char[bufferSize];
 
-	/*LZW* translator;
-	if (shouldCompress_)
-		translator = new Compressor();
-	else
-		translator = new Decompressor();*/
-
-
 	std::string suffix = shouldCompress_ ? "_cmp" : "_decmp";
 	std::ofstream oFile(filePath_ + suffix, std::ios::binary);
 	if (!oFile)
@@ -41,23 +34,15 @@ void Controller::processFile()
 
 		std::vector<char> iChunk(buffer, buffer + bufferCount);
 
-		//std::vector<char> oChunk = translator->processChunk(iChunk, processedBytes_);
 		std::vector<char> oChunk;
 		if (shouldCompress_)
-			oChunk = LZW::compress(iChunk, processedBytes_);
+			oChunk = LZW::compress(iChunk, processedBytes_, useASM_);
 		else
-			oChunk = LZW::decompress(iChunk, processedBytes_);
+			oChunk = LZW::decompress(iChunk, processedBytes_, useASM_);
 
 		oFile.write(oChunk.data(), oChunk.size());
 	}
 	delete[] buffer;
-	//delete translator;
 
 	std::cout << "File processed." << std::endl;
-}
-
-extern "C"
-{
-	int MyProc1(int, int);
-	int MyProc2(int);
 }

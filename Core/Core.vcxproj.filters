@@ -21,13 +21,13 @@
     <ClInclude Include="LZW.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Compressor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Decompressor.h">
+    <ClInclude Include="Dictionary_CPP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary_ASM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,13 +38,10 @@
     <ClCompile Include="LZW.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Compressor.cpp">
+    <ClCompile Include="Dictionary_CPP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Decompressor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dictionary.cpp">
+    <ClCompile Include="Dictionary_ASM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

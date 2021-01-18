@@ -140,17 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Compressor.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Decompressor.h" />
     <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="Dictionary_ASM.h" />
+    <ClInclude Include="Dictionary_CPP.h" />
     <ClInclude Include="LZW.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Compressor.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="Decompressor.cpp" />
-    <ClCompile Include="Dictionary.cpp" />
+    <ClCompile Include="Dictionary_ASM.cpp" />
+    <ClCompile Include="Dictionary_CPP.cpp" />
     <ClCompile Include="LZW.cpp" />
   </ItemGroup>
   <ItemGroup>

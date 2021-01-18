@@ -1,9 +1,18 @@
 #include "LZW.h"
+#include "Dictionary_ASM.h"
+#include "Dictionary_CPP.h"
 #include <iostream>
+#include <memory>
 
-std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& processedBytes)
+std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM)
 {
-    Dictionary dictionary;
+    std::unique_ptr<Dictionary> dictionaryPtr;
+    if (!useASM)
+        dictionaryPtr = std::make_unique<Dictionary_CPP>();
+    else
+        dictionaryPtr = std::make_unique<Dictionary_ASM>();
+    Dictionary& dictionary = *dictionaryPtr;
+
 	std::vector<unsigned short> compressed;
 	std::string s;
 	unsigned offset = 0;
@@ -16,7 +25,7 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
 		{
 			++processedBytes;
             if (processedBytes % 1000 == 0)
-                std::cout << processedBytes << std::endl;
+                std::cout << processedBytes << "\t" << dictionary.size() << std::endl;
 
 			char c = iChunk[i];
 			if (dictionary.contains(s + c))
@@ -49,9 +58,16 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
 
 
 
-std::vector<char> LZW::decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes)
+std::vector<char> LZW::decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM)
 {
-    Dictionary dictionary;
+    std::unique_ptr<Dictionary> dictionaryPtr;
+    if (!useASM)
+        dictionaryPtr = std::make_unique<Dictionary_CPP>();
+    else
+        dictionaryPtr = std::make_unique<Dictionary_ASM>();
+
+    Dictionary& dictionary = *dictionaryPtr;
+
     unsigned short* shortPtr = reinterpret_cast<unsigned short*>(iChunk.data());
     std::vector<unsigned short> compressed(shortPtr, shortPtr + iChunk.size() / 2);
     std::string decompressed; //decompressed data

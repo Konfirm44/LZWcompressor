@@ -26,7 +26,7 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "firstSix";
+	std::string file = "eng";
 
 	process(1, file);
 	process(0, file);

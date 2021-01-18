@@ -1,6 +1,6 @@
-#include "Dictionary.h"
+#include "Dictionary_CPP.h"
 
-Dictionary::Dictionary()
+Dictionary_CPP::Dictionary_CPP()
 {
     for (unsigned short i = 0; i < 256; ++i)
     {
@@ -9,13 +9,13 @@ Dictionary::Dictionary()
     }
 }
 
-unsigned short Dictionary::flush()
+unsigned short Dictionary_CPP::flush()
 {
     words.resize(256);
     return flushCode;
 }
 
-bool Dictionary::add(std::string s)
+bool Dictionary_CPP::add(std::string s)
 {
     if (words.size() == flushCode - 1)
         return false;
@@ -23,7 +23,7 @@ bool Dictionary::add(std::string s)
     return true;
 }
 
-bool Dictionary::contains(std::string s)
+bool Dictionary_CPP::contains(std::string s)
 {
     for (unsigned i = 0; i < words.size(); ++i)
     {
@@ -36,7 +36,7 @@ bool Dictionary::contains(std::string s)
     return false;
 }
 
-unsigned short Dictionary::code(std::string s)
+unsigned short Dictionary_CPP::code(std::string s)
 {
     if (words[indexOfLastCheckedWord_] == s)
         return indexOfLastCheckedWord_;
@@ -48,12 +48,12 @@ unsigned short Dictionary::code(std::string s)
     throw 0.f;
 }
 
-std::string Dictionary::operator[](int i)
+std::string Dictionary_CPP::operator[](int i)
 {
     return words[i];
 }
 
-//void Dictionary::setASM(bool useASM)
-//{
-//    Dictionary::_useASM = useASM;
-//}
+size_t Dictionary_CPP::size() const
+{
+    return words.size();
+}
