@@ -5,7 +5,7 @@ class Dictionary_ASM : public Dictionary
 {
 private:
     std::vector<char*> words;
-    unsigned indexOfLastCheckedWord;
+    unsigned indexOfLastCheckedWord = 0;
 
 public:
     Dictionary_ASM();

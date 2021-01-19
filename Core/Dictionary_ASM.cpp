@@ -1,7 +1,10 @@
 #include "Dictionary_ASM.h"
 #include <cstring>
 
-constexpr auto FLUSH_CODE = 65535;
+extern "C"
+{
+    bool contains_ASM(char** words, unsigned size, const char* s, unsigned* index);
+}
 
 Dictionary_ASM::Dictionary_ASM()
 {
@@ -10,57 +13,47 @@ Dictionary_ASM::Dictionary_ASM()
         char* str = new char[2];
         str[0] = i;
         str[1] = 0;
-        words.push_back()
+        words.push_back(str);
     }
 }
 
 unsigned short Dictionary_ASM::flush()
 {
-    for (auto i = wordsSize; i > 255; --i)
+    for (auto i = words.size(); i > 255; --i)
     {
-        free(words[i]);
-        --wordsSize;
+        delete[] words[i];
     }
-    return FLUSH_CODE;
+    return flushCode;
 }
 
 bool Dictionary_ASM::add(std::string s)
 {
-    if (wordsSize == FLUSH_CODE - 1)
+    if (words.size() == flushCode - 1)
         return false;
 
-    if (wordsSize == wordsCapacity)
-    {
-        words =(char**) realloc(words, wordsCapacity + CAPACITY_STEP);
-        if (!words)
-            throw "Hmm";
-        wordsCapacity += CAPACITY_STEP;
-    }
-    char* str = (char*)malloc(s.size() + 1);
-    strcpy_s(str, s.size() + 1, s.c_str());
-    words[wordsSize] = str;
-    wordsSize += 1;
+    char* str = new char[s.size() + 1];
+    strncpy_s(str, s.size() + 1, s.c_str(), s.size() + 1);
+    words.push_back(str);
     return true;
 }
 
-bool containsTMP(char** words, const unsigned wordsSize, const char* s, unsigned* indexOfLastCheckedWord)
-{
-    for (unsigned i = 0; i < wordsSize; ++i)
-    {
-        if (!strcmp(words[i], s))
-        {
-            *indexOfLastCheckedWord = i;
-            return true;
-        }
-    }
-    return false;
-}
+//bool contains_TMP(char** words, unsigned size, const char* s, unsigned* index)
+//{
+//    for (auto i = 0; i < size; ++i)
+//    {
+//        if (!strcmp(words[i], s))
+//        {
+//            *index = i;
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
 bool Dictionary_ASM::contains(std::string s)
 {
-    //return containsTMP(words, wordsSize, s.c_str(), &indexOfLastCheckedWord);
-
-    for (unsigned i = 0; i < wordsSize; ++i)
+    return contains_ASM(words.data(), words.size(), s.c_str(), &indexOfLastCheckedWord);
+    /*for (auto i = 0; i < words.size(); ++i)
     {
         if (!strcmp(words[i], s.c_str()))
         {
@@ -68,7 +61,7 @@ bool Dictionary_ASM::contains(std::string s)
             return true;
         }
     }
-    return false;
+    return false;*/
 }
 
 unsigned short Dictionary_ASM::code(std::string s)
@@ -76,7 +69,7 @@ unsigned short Dictionary_ASM::code(std::string s)
     if (!strcmp(words[indexOfLastCheckedWord], s.c_str()))
         return indexOfLastCheckedWord;
 
-    for (auto i = 0; i < wordsSize; ++i)
+    for (auto i = 0; i < words.size(); ++i)
         if (!strcmp(words[i], s.c_str()))
             return i;
 
@@ -90,12 +83,11 @@ std::string Dictionary_ASM::operator[](int i)
 
 size_t Dictionary_ASM::size() const
 {
-    return wordsSize;
+    return words.size();
 }
 
 Dictionary_ASM::~Dictionary_ASM()
 {
-    for (auto i = 0; i < wordsSize; ++i)
-        free(words[i]);
-    free(words);
+    for (auto i = 0; i < words.size(); ++i)
+        delete[] words[i];
 }
