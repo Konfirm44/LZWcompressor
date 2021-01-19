@@ -4,8 +4,8 @@
 class Dictionary_ASM : public Dictionary
 {
 private:
-    char** words;
-    unsigned wordsSize = 256;
+    std::vector<char*> words;
+    unsigned indexOfLastCheckedWord;
 
 public:
     Dictionary_ASM();
