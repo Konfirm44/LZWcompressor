@@ -15,11 +15,12 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
     Dictionary_ASM dictionary(useASM);
 
 	std::vector<unsigned short> compressed;
-	std::string s;
+    std::string s;
 	unsigned offset = 0;
 
 	do
 	{
+        s.clear();
 		s += iChunk[0 + offset];
 		++processedBytes;
 		for (auto i = 1 + offset; i < iChunk.size(); ++i)
@@ -39,7 +40,9 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
 				if (!dictionary.add(s + c))
 				{
 					compressed.push_back(dictionary.flush());
-					offset = i + 1;
+                    s = c;
+                    compressed.push_back(dictionary.code(s));
+                    offset = i + 1;
 					break;
 				}
 				s = c;
@@ -92,24 +95,38 @@ std::vector<char> LZW::decompress(std::vector<char> iChunk, std::uintmax_t& proc
             currCode = compressed[i];
             if (currCode == dictionary.flushCode)
             {
-                dictionary.flush();
-                offset = i + 1;
-                break;
+                throw 1.f; // should be impossible
             }
 
             if (currCode < dictionary.size()) // a word with this code exists in the dictionary
             {
                 currWord = dictionary[currCode];
 
-                if (!dictionary.add(prevWord + currWord[0]) && compressed[i + 1] != dictionary.flushCode)
-                    throw 'x';
+                if (!dictionary.add(prevWord + currWord[0]))    // dictionary is full
+                {
+                    printf("dupa");
+                    if (compressed[i + 1] != dictionary.flushCode)
+                    {
+                        printf("dupa");
+                    }
+                    
+                    decompressed += currWord;
+                    decompressed += dictionary[compressed[i+2]]; // is a single char-code, so it's ok to do it that way
+                    dictionary.flush();
+                    offset = i + 3;
+                    break;
+                }
             }
             else
             {
                 currWord = prevWord + prevWord[0];
 
-                if (!dictionary.add(currWord) && compressed[i + 1] != dictionary.flushCode)
-                    throw 1;
+                if (!dictionary.add(currWord))
+                {
+                    printf("dupa");
+                    if (compressed[i + 1] != dictionary.flushCode)
+                        throw 1;
+                }
             }
 
             decompressed += currWord;

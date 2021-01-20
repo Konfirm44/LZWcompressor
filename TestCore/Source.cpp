@@ -10,7 +10,7 @@ void process(bool shouldCompress, std::string file)
 	std::string ext = shouldCompress ? ".txt" : ".txt_cmp";
 	std::string full = dir + file + ext;
 	int threads = 1;
-	bool useASM = false;
+	bool useASM = true;
 
 	Controller controller(full.c_str(), shouldCompress, useASM, threads);
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -28,8 +28,8 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "firstSix";
+	std::string file = "shak";
 
-	process(1, file);
+	//process(1, file);
 	process(0, file);
 }

@@ -3,6 +3,8 @@
 
 extern "C" bool contains_ASM(char** words, const char* str, unsigned words_size, unsigned* index);
 
+constexpr auto sizeLimit = Dictionary_ASM::flushCode - 1;
+
 Dictionary_ASM::Dictionary_ASM(bool useASM) : useASM_(useASM)
 {
     for (auto i = 0; i < 256; ++i)
@@ -16,17 +18,23 @@ Dictionary_ASM::Dictionary_ASM(bool useASM) : useASM_(useASM)
 
 unsigned short Dictionary_ASM::flush()
 {
-    for (auto i = words_.size(); i > 255; --i)
+    for (auto i = words_.size() - 1; i > 255; --i)
     {
         delete[] words_[i];
     }
+    words_.resize(256);
+    indexOfLastCheckedWord_ = 0;
     return flushCode;
 }
 
 bool Dictionary_ASM::add(std::string s)
 {
-    if (words_.size() == flushCode - 1)
+    if (words_.size() > 65000)
+        printf("%d\n", words_.size());
+    if (words_.size() == sizeLimit)
+    {
         return false;
+    }
 
     char* str = new char[s.size() + 1];
     strncpy_s(str, s.size() + 1, s.c_str(), s.size() + 1);
@@ -53,7 +61,9 @@ bool Dictionary_ASM::contains(std::string s)
 unsigned short Dictionary_ASM::code(std::string s)
 {
     if (!strcmp(words_[indexOfLastCheckedWord_], s.c_str()))
+    {
         return indexOfLastCheckedWord_;
+    }
 
     for (auto i = 0; i < words_.size(); ++i)
         if (!strcmp(words_[i], s.c_str()))

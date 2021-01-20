@@ -5,20 +5,21 @@ streq_ASM proc
 ; str2 RDX
 	mov rax, rcx
 	sub rax, rdx
-	sub rdx, 16
+	; RAX contains the difference between both strings' adresses
 
+	sub rdx, 16		; prepare for loop
 	streqLoop:
 		add rdx, 16
 		movdqu xmm0, xmmword ptr[rdx]
-		pcmpistri xmm0, xmmword ptr[rdx + rax], 00011000b	; 0y11000 - negative polarity, equal each, unsigned byte
+		pcmpistri xmm0, xmmword ptr[rdx + rax], 00011000b	; 00011000b - mode/return setting
 		ja streqLoop	; ZF == CF == 0, all chars equal and valid
 		
 	jc streqDiff	; CF == 1, strings are not equal
-	mov rax, 1
+	mov rax, 1		; return true
 	jmp streqRet
 
 	streqDiff:
-	mov rax, 0
+	mov rax, 0		; return false
 	streqRet:
 	ret
 streq_ASM endp
@@ -31,23 +32,25 @@ contains_ASM proc
 ; index	R9
 
 	push rbp
-	mov rbp, rcx	; store words in rbp
-	mov rcx, 0		; rcx as iterator
+	mov rbp, rcx	; store words in RBP
+	mov rcx, 0		; RCX as iterator
 	forLoop:
-		cmp rcx, r8	; (rcx == size)
+		cmp rcx, r8	; (RCX == size)
 		je endLoop
-		mov rax, [rbp + rcx * 8]	; rax = words[rcx]
+		mov rax, [rbp + rcx * 8]	; RAX = words[iterator]
 
+		; save registers and prepare arguments for function call
 		push rcx
 		push rdx
 		mov rcx, rax
-		call streq_ASM
+		call streq_ASM	; check if strings are equal
+		; restore registers
 		pop rdx
 		pop rcx
 
-		cmp rax, 1
+		cmp rax, 1	; function returned true
 		je foundIt
-		inc ecx
+		inc ecx		; ++iterator
 		jmp forLoop
 	endLoop:	
 	mov rax, 0		; return 0
@@ -55,7 +58,7 @@ contains_ASM proc
 
 	foundIt:
 	mov [r9], ecx	; *index = iterator
-	mov rax, 1		; return 1
+;	mov rax, 1		; return 1
 
 	finish:
 	pop rbp
