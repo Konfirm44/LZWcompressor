@@ -1,17 +1,18 @@
 #include "LZW.h"
 #include "Dictionary_ASM.h"
-#include "Dictionary_CPP.h"
+//#include "Dictionary_CPP.h"
 #include <iostream>
-#include <memory>
+//#include <memory>
 
 std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM)
 {
-    std::unique_ptr<Dictionary> dictionaryPtr;
-    if (!useASM)
-        dictionaryPtr = std::make_unique<Dictionary_CPP>();
-    else
-        dictionaryPtr = std::make_unique<Dictionary_ASM>();
-    Dictionary& dictionary = *dictionaryPtr;
+    //std::unique_ptr<Dictionary> dictionaryPtr;
+    //if (!useASM)
+    //    dictionaryPtr = std::make_unique<Dictionary_CPP>();
+    //else
+    //    dictionaryPtr = std::make_unique<Dictionary_ASM>();
+    //Dictionary& dictionary = *dictionaryPtr;
+    Dictionary_ASM dictionary(useASM);
 
 	std::vector<unsigned short> compressed;
 	std::string s;
@@ -60,13 +61,13 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
 
 std::vector<char> LZW::decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM)
 {
-    std::unique_ptr<Dictionary> dictionaryPtr;
-    if (!useASM)
-        dictionaryPtr = std::make_unique<Dictionary_CPP>();
-    else
-        dictionaryPtr = std::make_unique<Dictionary_ASM>();
-
-    Dictionary& dictionary = *dictionaryPtr;
+    //std::unique_ptr<Dictionary> dictionaryPtr;
+    //if (!useASM)
+    //    dictionaryPtr = std::make_unique<Dictionary_CPP>();
+    //else
+    //    dictionaryPtr = std::make_unique<Dictionary_ASM>();
+    //Dictionary& dictionary = *dictionaryPtr;
+    Dictionary_ASM dictionary(useASM);
 
     unsigned short* shortPtr = reinterpret_cast<unsigned short*>(iChunk.data());
     std::vector<unsigned short> compressed(shortPtr, shortPtr + iChunk.size() / 2);

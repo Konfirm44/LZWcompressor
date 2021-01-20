@@ -1,14 +1,17 @@
 #pragma once
-#include "Dictionary.h"
+//#include "Dictionary.h"
+#include <string>
+#include <vector>
 
-class Dictionary_ASM : public Dictionary
+class Dictionary_ASM //: public Dictionary
 {
 private:
-    std::vector<char*> words;
-    unsigned indexOfLastCheckedWord = 0;
+    std::vector<char*> words_;
+    unsigned indexOfLastCheckedWord_ = 0;
+    bool useASM_ = false;
 
 public:
-    Dictionary_ASM();
+    Dictionary_ASM(bool useASM);
 
     unsigned short flush();
 
@@ -23,5 +26,7 @@ public:
     size_t size() const;
 
     ~Dictionary_ASM();
+
+    static const unsigned short flushCode = 65535;
 };
 

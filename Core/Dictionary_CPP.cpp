@@ -25,7 +25,7 @@ bool Dictionary_CPP::add(std::string s)
 
 bool Dictionary_CPP::contains(std::string s)
 {
-    for (unsigned i = 0; i < words.size(); ++i)
+    for (auto i = 0; i < words.size(); ++i)
     {
         if (words[i] == s)
         {

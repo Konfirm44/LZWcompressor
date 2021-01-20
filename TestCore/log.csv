@@ -56,3 +56,37 @@ C:/ZZZ/gh.txt;0[s]
 C:/ZZZ/gh.txt_cmp;0[s]
 C:/ZZZ/gh.txt;0[s]
 C:/ZZZ/gh.txt_cmp;0[s]
+C:/ZZZ/eng.txt;0[s];asm: 1
+C:/ZZZ/eng.txt_cmp;0[s];asm: 1
+C:/ZZZ/eng.txt;1901[ms];asm: 0
+C:/ZZZ/eng.txt_cmp;569[ms];asm: 0
+C:/ZZZ/eng.txt;481[ms];asm: 1
+C:/ZZZ/eng.txt_cmp;534[ms];asm: 1
+C:/ZZZ/eng.txt;1817[ms];asm: 0
+C:/ZZZ/eng.txt_cmp;459[ms];asm: 0
+C:/ZZZ/eng.txt;1791[ms];asm: 0
+C:/ZZZ/eng.txt_cmp;469[ms];asm: 0
+C:/ZZZ/eng.txt;488[ms];asm: 1
+C:/ZZZ/eng.txt_cmp;572[ms];asm: 1
+C:/ZZZ/eng.txt;1848[ms];asm: 0
+C:/ZZZ/eng.txt_cmp;482[ms];asm: 0
+C:/ZZZ/21dc.txt;20587[ms];asm: 0
+C:/ZZZ/21dc.txt_cmp;592[ms];asm: 0
+C:/ZZZ/21dc.txt;869[ms];asm: 1
+C:/ZZZ/21dc.txt_cmp;772[ms];asm: 1
+C:/ZZZ/21dc.txt;11808[ms];asm: 1
+C:/ZZZ/21dc.txt_cmp;514[ms];asm: 1
+C:/ZZZ/21dc.txt;12028[ms];asm: 0
+C:/ZZZ/21dc.txt_cmp;559[ms];asm: 0
+C:/ZZZ/21dc.txt;849[ms];asm: 1
+C:/ZZZ/21dc.txt_cmp;658[ms];asm: 1
+C:/ZZZ/firstSix.txt;2537[ms];asm: 1
+C:/ZZZ/firstSix.txt_cmp;639[ms];asm: 1
+C:/ZZZ/firstSix.txt;87354[ms];asm: 0
+C:/ZZZ/firstSix.txt_cmp;672[ms];asm: 0
+C:/ZZZ/firstSix.txt;17491[ms];asm: 0
+C:/ZZZ/firstSix.txt_cmp;43[ms];asm: 0
+C:/ZZZ/firstSix.txt;1491[ms];asm: 1
+C:/ZZZ/firstSix.txt_cmp;74[ms];asm: 1
+C:/ZZZ/firstSix.txt;786[ms];asm: 0
+C:/ZZZ/firstSix.txt_cmp;58[ms];asm: 0
