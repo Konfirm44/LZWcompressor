@@ -3,7 +3,7 @@
 
 extern "C"
 {
-    bool contains_ASM(char** words, unsigned size, const char* s, unsigned* index);
+    bool contains_ASM(char** words, const char* s, unsigned size, unsigned* index);
 }
 
 Dictionary_ASM::Dictionary_ASM()
@@ -52,7 +52,7 @@ bool Dictionary_ASM::add(std::string s)
 
 bool Dictionary_ASM::contains(std::string s)
 {
-    return contains_ASM(words.data(), words.size(), s.c_str(), &indexOfLastCheckedWord);
+    return contains_ASM(words.data(),  s.c_str(), words.size(), &indexOfLastCheckedWord);
     /*for (auto i = 0; i < words.size(); ++i)
     {
         if (!strcmp(words[i], s.c_str()))

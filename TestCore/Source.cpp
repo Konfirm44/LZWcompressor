@@ -26,17 +26,17 @@ void process(bool shouldCompress, std::string file)
 		std::cerr << "Could not open log file." << std::endl;
 }
 
-extern "C" bool test_ASM(int* words, unsigned size, const int s, unsigned* index);
-
 int main()
 {
-	int arr[5] = { 1,2,3,4,5 };
-	unsigned ind = 0;
-	bool b = test_ASM(arr, 5, 3, &ind);
-	bool c = b;
+	//int arr[5] = { 1,2,3,4,5 };
+	//unsigned ind = 0;
+	//bool b = test_ASM(arr, 5, 3, &ind);
+	//bool c = b;
 
-	//Dictionary_ASM d;
-	//d.contains("a");
+	Dictionary_ASM d;
+	d.contains("a");
+	int a = 3;
+
 
 	/*std::string file = "gh";
 
