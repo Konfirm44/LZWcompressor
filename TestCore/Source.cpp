@@ -29,7 +29,7 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "21dc";
+	std::string file = "shak";
 
 	process(1, file);
 	process(0, file);

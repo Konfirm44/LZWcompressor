@@ -104,7 +104,7 @@ namespace LZWcompressor
             this.radioButton_decmp.Size = new System.Drawing.Size(82, 17);
             this.radioButton_decmp.TabIndex = 1;
             this.radioButton_decmp.Text = "decompress";
-            this.toolTip2.SetToolTip(this.radioButton_decmp, " ");
+            this.toolTip2.SetToolTip(this.radioButton_decmp, " ASM & multithreading only available for compression");
             this.radioButton_decmp.UseVisualStyleBackColor = true;
             // 
             // radioButton_cmp
@@ -117,7 +117,7 @@ namespace LZWcompressor
             this.radioButton_cmp.TabIndex = 0;
             this.radioButton_cmp.TabStop = true;
             this.radioButton_cmp.Text = "compress";
-            this.toolTip2.SetToolTip(this.radioButton_cmp, " ");
+            this.toolTip2.SetToolTip(this.radioButton_cmp, " ASM & multithreading only available for compression");
             this.radioButton_cmp.UseVisualStyleBackColor = true;
             this.radioButton_cmp.CheckedChanged += new System.EventHandler(this.radioButton_cmp_CheckedChanged);
             // 
@@ -267,10 +267,6 @@ namespace LZWcompressor
             // toolTip1
             // 
             this.toolTip1.ToolTipTitle = "ASM only available for processing text files";
-            // 
-            // toolTip2
-            // 
-            this.toolTip2.ToolTipTitle = "ASM only available for compression";
             // 
             // Form1
             // 
