@@ -35,6 +35,7 @@ namespace LZWcompressor
             button_select.Enabled = false;
             groupBox1.Enabled = false;
             groupBox2.Enabled = false;
+            numericUpDown_THREADS.Enabled = false;
         }
 
         private void EnableControls()
@@ -43,6 +44,7 @@ namespace LZWcompressor
             button_select.Enabled = true;
             groupBox1.Enabled = true;
             groupBox2.Enabled = true;
+            numericUpDown_THREADS.Enabled = true;
         }
 
         private void button_select_Click(object sender, EventArgs e)

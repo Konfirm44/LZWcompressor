@@ -1,9 +1,8 @@
 #pragma once
-//#include "Dictionary.h"
 #include <string>
 #include <vector>
 
-class Dictionary_ASM //: public Dictionary
+class Dictionary_ASM
 {
 private:
     std::vector<char*> words_;

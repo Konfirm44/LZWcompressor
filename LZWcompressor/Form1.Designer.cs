@@ -57,10 +57,9 @@ namespace LZWcompressor
             // 
             // button_select
             // 
-            this.button_select.Location = new System.Drawing.Point(477, 28);
-            this.button_select.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_select.Location = new System.Drawing.Point(382, 22);
             this.button_select.Name = "button_select";
-            this.button_select.Size = new System.Drawing.Size(136, 28);
+            this.button_select.Size = new System.Drawing.Size(109, 22);
             this.button_select.TabIndex = 0;
             this.button_select.Text = "Select input file";
             this.button_select.UseVisualStyleBackColor = true;
@@ -69,31 +68,27 @@ namespace LZWcompressor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(19, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 17);
+            this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Input file:";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(113, 31);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Location = new System.Drawing.Point(90, 25);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(340, 22);
+            this.textBox1.Size = new System.Drawing.Size(273, 20);
             this.textBox1.TabIndex = 3;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButton_actionDECMP);
             this.groupBox1.Controls.Add(this.radioButton_actionCMP);
-            this.groupBox1.Location = new System.Drawing.Point(28, 128);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(22, 102);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(151, 91);
+            this.groupBox1.Size = new System.Drawing.Size(121, 73);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Action";
@@ -101,10 +96,9 @@ namespace LZWcompressor
             // radioButton_actionDECMP
             // 
             this.radioButton_actionDECMP.AutoSize = true;
-            this.radioButton_actionDECMP.Location = new System.Drawing.Point(27, 53);
-            this.radioButton_actionDECMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton_actionDECMP.Location = new System.Drawing.Point(22, 42);
             this.radioButton_actionDECMP.Name = "radioButton_actionDECMP";
-            this.radioButton_actionDECMP.Size = new System.Drawing.Size(106, 21);
+            this.radioButton_actionDECMP.Size = new System.Drawing.Size(82, 17);
             this.radioButton_actionDECMP.TabIndex = 1;
             this.radioButton_actionDECMP.Text = "decompress";
             this.radioButton_actionDECMP.UseVisualStyleBackColor = true;
@@ -113,10 +107,9 @@ namespace LZWcompressor
             // 
             this.radioButton_actionCMP.AutoSize = true;
             this.radioButton_actionCMP.Checked = true;
-            this.radioButton_actionCMP.Location = new System.Drawing.Point(27, 25);
-            this.radioButton_actionCMP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton_actionCMP.Location = new System.Drawing.Point(22, 20);
             this.radioButton_actionCMP.Name = "radioButton_actionCMP";
-            this.radioButton_actionCMP.Size = new System.Drawing.Size(90, 21);
+            this.radioButton_actionCMP.Size = new System.Drawing.Size(70, 17);
             this.radioButton_actionCMP.TabIndex = 0;
             this.radioButton_actionCMP.TabStop = true;
             this.radioButton_actionCMP.Text = "compress";
@@ -126,30 +119,26 @@ namespace LZWcompressor
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 70);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(19, 56);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Output file:";
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(113, 66);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Location = new System.Drawing.Point(90, 53);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(340, 22);
+            this.textBox2.Size = new System.Drawing.Size(273, 20);
             this.textBox2.TabIndex = 4;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.checkBox_ASM);
-            this.groupBox2.Location = new System.Drawing.Point(187, 128);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(150, 102);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(88, 91);
+            this.groupBox2.Size = new System.Drawing.Size(70, 73);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Library";
@@ -157,10 +146,9 @@ namespace LZWcompressor
             // checkBox_ASM
             // 
             this.checkBox_ASM.AutoSize = true;
-            this.checkBox_ASM.Location = new System.Drawing.Point(8, 38);
-            this.checkBox_ASM.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox_ASM.Location = new System.Drawing.Point(6, 30);
             this.checkBox_ASM.Name = "checkBox_ASM";
-            this.checkBox_ASM.Size = new System.Drawing.Size(59, 21);
+            this.checkBox_ASM.Size = new System.Drawing.Size(49, 17);
             this.checkBox_ASM.TabIndex = 0;
             this.checkBox_ASM.Text = "ASM";
             this.checkBox_ASM.UseVisualStyleBackColor = true;
@@ -168,10 +156,9 @@ namespace LZWcompressor
             // button_START
             // 
             this.button_START.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_START.Location = new System.Drawing.Point(477, 128);
-            this.button_START.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_START.Location = new System.Drawing.Point(382, 102);
             this.button_START.Name = "button_START";
-            this.button_START.Size = new System.Drawing.Size(136, 91);
+            this.button_START.Size = new System.Drawing.Size(109, 73);
             this.button_START.TabIndex = 8;
             this.button_START.Text = "START";
             this.button_START.UseVisualStyleBackColor = true;
@@ -180,11 +167,9 @@ namespace LZWcompressor
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.label_timer);
-            this.groupBox3.Location = new System.Drawing.Point(341, 128);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(273, 102);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(113, 91);
+            this.groupBox3.Size = new System.Drawing.Size(90, 73);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Time elapsed";
@@ -193,20 +178,18 @@ namespace LZWcompressor
             // 
             this.label_timer.AutoSize = true;
             this.label_timer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_timer.Location = new System.Drawing.Point(31, 38);
-            this.label_timer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_timer.Location = new System.Drawing.Point(25, 30);
             this.label_timer.Name = "label_timer";
-            this.label_timer.Size = new System.Drawing.Size(23, 17);
+            this.label_timer.Size = new System.Drawing.Size(16, 13);
             this.label_timer.TabIndex = 0;
             this.label_timer.Text = "---";
             this.label_timer.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(28, 244);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.progressBar.Location = new System.Drawing.Point(22, 195);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(585, 28);
+            this.progressBar.Size = new System.Drawing.Size(468, 22);
             this.progressBar.TabIndex = 10;
             // 
             // backgroundWorker1
@@ -227,16 +210,16 @@ namespace LZWcompressor
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(473, 70);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(378, 56);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Threads:";
             // 
             // numericUpDown_THREADS
             // 
-            this.numericUpDown_THREADS.Location = new System.Drawing.Point(545, 67);
+            this.numericUpDown_THREADS.Location = new System.Drawing.Point(436, 54);
+            this.numericUpDown_THREADS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericUpDown_THREADS.Maximum = new decimal(new int[] {
             64,
             0,
@@ -248,7 +231,7 @@ namespace LZWcompressor
             0,
             0});
             this.numericUpDown_THREADS.Name = "numericUpDown_THREADS";
-            this.numericUpDown_THREADS.Size = new System.Drawing.Size(68, 22);
+            this.numericUpDown_THREADS.Size = new System.Drawing.Size(54, 20);
             this.numericUpDown_THREADS.TabIndex = 13;
             this.numericUpDown_THREADS.Value = new decimal(new int[] {
             1,
@@ -258,9 +241,9 @@ namespace LZWcompressor
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(645, 321);
+            this.ClientSize = new System.Drawing.Size(516, 257);
             this.Controls.Add(this.numericUpDown_THREADS);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.progressBar);
@@ -274,7 +257,6 @@ namespace LZWcompressor
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_select);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "LZWcompressor";
