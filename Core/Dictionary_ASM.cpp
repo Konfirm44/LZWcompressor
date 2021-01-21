@@ -29,8 +29,6 @@ unsigned short Dictionary_ASM::flush()
 
 bool Dictionary_ASM::add(std::string s)
 {
-    if (words_.size() > 65000)
-        printf("%d\n", words_.size());
     if (words_.size() == sizeLimit)
     {
         return false;
