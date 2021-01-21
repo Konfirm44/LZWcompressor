@@ -36,9 +36,9 @@ void Controller::processFile()
 
 		std::vector<char> oChunk;
 		if (shouldCompress_)
-			oChunk = LZW::compress(iChunk, processedBytes_, useASM_);
+			oChunk = LZW::compress(iChunk, processedBytes_, useASM_, useCstrings_);
 		else
-			oChunk = LZW::decompress(iChunk, processedBytes_, useASM_);
+			oChunk = LZW::decompress(iChunk, processedBytes_, useASM_, useCstrings_);
 
 		oFile.write(oChunk.data(), oChunk.size());
 	}

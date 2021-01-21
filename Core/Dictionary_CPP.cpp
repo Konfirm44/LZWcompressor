@@ -1,6 +1,6 @@
 #include "Dictionary_CPP.h"
 
-Dictionary_CPP::Dictionary_CPP()
+Dictionary_CPP::Dictionary_CPP(bool useASM) : useASM_(useASM)
 {
     for (unsigned short i = 0; i < 256; ++i)
     {

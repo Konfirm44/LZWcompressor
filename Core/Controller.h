@@ -8,16 +8,18 @@ private:
 	const char* filePath_;
 	bool shouldCompress_;
 	bool useASM_;
+	bool useCstrings_;
 	int threads_;
 
 	std::uintmax_t processedBytes_ = 0;
 	std::uintmax_t fileSize_ = 0;
 
 public:
-	Controller(const char* fileName, bool shouldCompress, bool useASM, int threads) 
+	Controller(const char* fileName, bool shouldCompress, bool useASM, bool useCstrings, int threads)
 		: filePath_(fileName)
 		, shouldCompress_(shouldCompress)
 		, useASM_(useASM) 
+		, useCstrings_(useCstrings)
 		, threads_(threads)
 	{
 		fs::path path = filePath_;

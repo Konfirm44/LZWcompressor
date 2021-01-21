@@ -11,8 +11,9 @@ void process(bool shouldCompress, std::string file)
 	std::string full = dir + file + ext;
 	int threads = 1;
 	bool useASM = true;
+	bool useCstrings = true;
 
-	Controller controller(full.c_str(), shouldCompress, useASM, threads);
+	Controller controller(full.c_str(), shouldCompress, useASM, useCstrings, threads);
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 	controller.processFile();
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();

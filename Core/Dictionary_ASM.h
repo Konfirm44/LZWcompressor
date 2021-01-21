@@ -1,8 +1,7 @@
 #pragma once
-#include <string>
-#include <vector>
+#include "Dictionary.h"
 
-class Dictionary_ASM
+class Dictionary_ASM : public Dictionary
 {
 private:
     std::vector<char*> words_;
@@ -25,7 +24,5 @@ public:
     size_t size() const;
 
     ~Dictionary_ASM();
-
-    static const unsigned short flushCode = 65535;
 };
 

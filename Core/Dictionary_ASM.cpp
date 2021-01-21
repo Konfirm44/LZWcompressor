@@ -63,9 +63,17 @@ unsigned short Dictionary_ASM::code(std::string s)
         return indexOfLastCheckedWord_;
     }
 
-    for (auto i = 0; i < words_.size(); ++i)
-        if (!strcmp(words_[i], s.c_str()))
-            return i;
+    if (useASM_)
+    {
+        if (contains_ASM(words_.data(), s.c_str(), words_.size(), &indexOfLastCheckedWord_))
+            return indexOfLastCheckedWord_;
+    }
+    else
+    {
+        for (auto i = 0; i < words_.size(); ++i)
+            if (!strcmp(words_[i], s.c_str()))
+                return i;
+    }
 
     throw 0.f;
 }

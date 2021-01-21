@@ -34,13 +34,14 @@ namespace LZWcompressor
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton_actionDECMP = new System.Windows.Forms.RadioButton();
-            this.radioButton_actionCMP = new System.Windows.Forms.RadioButton();
+            this.radioButton_decmp = new System.Windows.Forms.RadioButton();
+            this.radioButton_cmp = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox_ASM = new System.Windows.Forms.CheckBox();
-            this.button_START = new System.Windows.Forms.Button();
+            this.checkBox_cstring = new System.Windows.Forms.CheckBox();
+            this.checkBox_asm = new System.Windows.Forms.CheckBox();
+            this.button_start = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label_timer = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
@@ -48,16 +49,18 @@ namespace LZWcompressor
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown_THREADS = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_threads = new System.Windows.Forms.NumericUpDown();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_THREADS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_threads)).BeginInit();
             this.SuspendLayout();
             // 
             // button_select
             // 
-            this.button_select.Location = new System.Drawing.Point(382, 22);
+            this.button_select.Location = new System.Drawing.Point(382, 23);
             this.button_select.Name = "button_select";
             this.button_select.Size = new System.Drawing.Size(109, 22);
             this.button_select.TabIndex = 0;
@@ -84,8 +87,8 @@ namespace LZWcompressor
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButton_actionDECMP);
-            this.groupBox1.Controls.Add(this.radioButton_actionCMP);
+            this.groupBox1.Controls.Add(this.radioButton_decmp);
+            this.groupBox1.Controls.Add(this.radioButton_cmp);
             this.groupBox1.Location = new System.Drawing.Point(22, 102);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(121, 73);
@@ -93,28 +96,30 @@ namespace LZWcompressor
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Action";
             // 
-            // radioButton_actionDECMP
+            // radioButton_decmp
             // 
-            this.radioButton_actionDECMP.AutoSize = true;
-            this.radioButton_actionDECMP.Location = new System.Drawing.Point(22, 42);
-            this.radioButton_actionDECMP.Name = "radioButton_actionDECMP";
-            this.radioButton_actionDECMP.Size = new System.Drawing.Size(82, 17);
-            this.radioButton_actionDECMP.TabIndex = 1;
-            this.radioButton_actionDECMP.Text = "decompress";
-            this.radioButton_actionDECMP.UseVisualStyleBackColor = true;
+            this.radioButton_decmp.AutoSize = true;
+            this.radioButton_decmp.Location = new System.Drawing.Point(22, 42);
+            this.radioButton_decmp.Name = "radioButton_decmp";
+            this.radioButton_decmp.Size = new System.Drawing.Size(82, 17);
+            this.radioButton_decmp.TabIndex = 1;
+            this.radioButton_decmp.Text = "decompress";
+            this.toolTip2.SetToolTip(this.radioButton_decmp, " ");
+            this.radioButton_decmp.UseVisualStyleBackColor = true;
             // 
-            // radioButton_actionCMP
+            // radioButton_cmp
             // 
-            this.radioButton_actionCMP.AutoSize = true;
-            this.radioButton_actionCMP.Checked = true;
-            this.radioButton_actionCMP.Location = new System.Drawing.Point(22, 20);
-            this.radioButton_actionCMP.Name = "radioButton_actionCMP";
-            this.radioButton_actionCMP.Size = new System.Drawing.Size(70, 17);
-            this.radioButton_actionCMP.TabIndex = 0;
-            this.radioButton_actionCMP.TabStop = true;
-            this.radioButton_actionCMP.Text = "compress";
-            this.radioButton_actionCMP.UseVisualStyleBackColor = true;
-            this.radioButton_actionCMP.CheckedChanged += new System.EventHandler(this.radioButton_actionCMP_CheckedChanged);
+            this.radioButton_cmp.AutoSize = true;
+            this.radioButton_cmp.Checked = true;
+            this.radioButton_cmp.Location = new System.Drawing.Point(22, 20);
+            this.radioButton_cmp.Name = "radioButton_cmp";
+            this.radioButton_cmp.Size = new System.Drawing.Size(70, 17);
+            this.radioButton_cmp.TabIndex = 0;
+            this.radioButton_cmp.TabStop = true;
+            this.radioButton_cmp.Text = "compress";
+            this.toolTip2.SetToolTip(this.radioButton_cmp, " ");
+            this.radioButton_cmp.UseVisualStyleBackColor = true;
+            this.radioButton_cmp.CheckedChanged += new System.EventHandler(this.radioButton_cmp_CheckedChanged);
             // 
             // label2
             // 
@@ -135,34 +140,54 @@ namespace LZWcompressor
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox_ASM);
+            this.groupBox2.Controls.Add(this.checkBox_cstring);
+            this.groupBox2.Controls.Add(this.checkBox_asm);
             this.groupBox2.Location = new System.Drawing.Point(150, 102);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(70, 73);
+            this.groupBox2.Size = new System.Drawing.Size(117, 73);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Library";
+            this.groupBox2.Text = "Options";
             // 
-            // checkBox_ASM
+            // checkBox_cstring
             // 
-            this.checkBox_ASM.AutoSize = true;
-            this.checkBox_ASM.Location = new System.Drawing.Point(6, 30);
-            this.checkBox_ASM.Name = "checkBox_ASM";
-            this.checkBox_ASM.Size = new System.Drawing.Size(49, 17);
-            this.checkBox_ASM.TabIndex = 0;
-            this.checkBox_ASM.Text = "ASM";
-            this.checkBox_ASM.UseVisualStyleBackColor = true;
+            this.checkBox_cstring.AutoSize = true;
+            this.checkBox_cstring.Checked = true;
+            this.checkBox_cstring.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_cstring.Location = new System.Drawing.Point(6, 43);
+            this.checkBox_cstring.Name = "checkBox_cstring";
+            this.checkBox_cstring.Size = new System.Drawing.Size(105, 17);
+            this.checkBox_cstring.TabIndex = 1;
+            this.checkBox_cstring.Text = "text compression";
+            this.toolTip1.SetToolTip(this.checkBox_cstring, "Uncheck \"text compression\" for processing other files.\r\n\r\nYou may try processing " +
+        "non-text files with \r\n\"text compression\" checked only if they do not contain\r\n\"0" +
+        "x00\" bytes. ");
+            this.checkBox_cstring.UseVisualStyleBackColor = true;
+            this.checkBox_cstring.CheckedChanged += new System.EventHandler(this.checkBox_cstring_CheckedChanged);
             // 
-            // button_START
+            // checkBox_asm
             // 
-            this.button_START.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_START.Location = new System.Drawing.Point(382, 102);
-            this.button_START.Name = "button_START";
-            this.button_START.Size = new System.Drawing.Size(109, 73);
-            this.button_START.TabIndex = 8;
-            this.button_START.Text = "START";
-            this.button_START.UseVisualStyleBackColor = true;
-            this.button_START.Click += new System.EventHandler(this.button_START_Click);
+            this.checkBox_asm.AutoSize = true;
+            this.checkBox_asm.Location = new System.Drawing.Point(6, 21);
+            this.checkBox_asm.Name = "checkBox_asm";
+            this.checkBox_asm.Size = new System.Drawing.Size(49, 17);
+            this.checkBox_asm.TabIndex = 0;
+            this.checkBox_asm.Text = "ASM";
+            this.toolTip1.SetToolTip(this.checkBox_asm, "Uncheck \"text compression\" for processing other files.\r\n\r\nYou may try processing " +
+        "non-text files with \r\n\"text compression\" checked only if they do not contain\r\n\"0" +
+        "x00\" bytes. \r\n");
+            this.checkBox_asm.UseVisualStyleBackColor = true;
+            // 
+            // button_start
+            // 
+            this.button_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_start.Location = new System.Drawing.Point(382, 102);
+            this.button_start.Name = "button_start";
+            this.button_start.Size = new System.Drawing.Size(109, 73);
+            this.button_start.TabIndex = 8;
+            this.button_start.Text = "START";
+            this.button_start.UseVisualStyleBackColor = true;
+            this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
             // groupBox3
             // 
@@ -216,39 +241,47 @@ namespace LZWcompressor
             this.label3.TabIndex = 12;
             this.label3.Text = "Threads:";
             // 
-            // numericUpDown_THREADS
+            // numericUpDown_threads
             // 
-            this.numericUpDown_THREADS.Location = new System.Drawing.Point(436, 54);
-            this.numericUpDown_THREADS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.numericUpDown_THREADS.Maximum = new decimal(new int[] {
-            64,
+            this.numericUpDown_threads.Location = new System.Drawing.Point(436, 54);
+            this.numericUpDown_threads.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDown_threads.Maximum = new decimal(new int[] {
+            16,
             0,
             0,
             0});
-            this.numericUpDown_THREADS.Minimum = new decimal(new int[] {
+            this.numericUpDown_threads.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown_THREADS.Name = "numericUpDown_THREADS";
-            this.numericUpDown_THREADS.Size = new System.Drawing.Size(54, 20);
-            this.numericUpDown_THREADS.TabIndex = 13;
-            this.numericUpDown_THREADS.Value = new decimal(new int[] {
+            this.numericUpDown_threads.Name = "numericUpDown_threads";
+            this.numericUpDown_threads.Size = new System.Drawing.Size(54, 20);
+            this.numericUpDown_threads.TabIndex = 13;
+            this.numericUpDown_threads.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.ToolTipTitle = "ASM only available for processing text files";
+            // 
+            // toolTip2
+            // 
+            this.toolTip2.ToolTipTitle = "ASM only available for compression";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(516, 257);
-            this.Controls.Add(this.numericUpDown_THREADS);
+            this.Controls.Add(this.numericUpDown_threads);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button_START);
+            this.Controls.Add(this.button_start);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox2);
@@ -267,7 +300,7 @@ namespace LZWcompressor
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_THREADS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_threads)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,21 +312,24 @@ namespace LZWcompressor
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton_actionDECMP;
-        private System.Windows.Forms.RadioButton radioButton_actionCMP;
+        private System.Windows.Forms.RadioButton radioButton_decmp;
+        private System.Windows.Forms.RadioButton radioButton_cmp;
         private System.Windows.Forms.Label label2;
         public System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button_START;
+        private System.Windows.Forms.Button button_start;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label_timer;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.CheckBox checkBox_ASM;
+        private System.Windows.Forms.CheckBox checkBox_asm;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown_THREADS;
+        private System.Windows.Forms.NumericUpDown numericUpDown_threads;
+        private System.Windows.Forms.CheckBox checkBox_cstring;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
     }
 }
 

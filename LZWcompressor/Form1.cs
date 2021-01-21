@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Wrapper;
 
@@ -10,17 +11,17 @@ namespace LZWcompressor
         private bool _shouldCompress;
         private WrappedController _wrappedController;
         private int _seconds;
-
+        private Stopwatch _stopwatch;
 
         public Form1()
         {
             InitializeComponent();
-            _shouldCompress = radioButton_actionCMP.Checked;
+            _shouldCompress = radioButton_cmp.Checked;
             label_timer.Text = "";
-            button_START.Enabled = false;
+            button_start.Enabled = false;
 
             var threads = Environment.ProcessorCount;
-            numericUpDown_THREADS.Value = threads;
+            numericUpDown_threads.Value = threads;
         }
 
         private void AdjustOutputFileName()
@@ -31,20 +32,20 @@ namespace LZWcompressor
 
         private void DisableControls()
         {
-            button_START.Enabled = false;
+            button_start.Enabled = false;
             button_select.Enabled = false;
             groupBox1.Enabled = false;
             groupBox2.Enabled = false;
-            numericUpDown_THREADS.Enabled = false;
+            numericUpDown_threads.Enabled = false;
         }
 
         private void EnableControls()
         {
-            button_START.Enabled = true;
+            button_start.Enabled = true;
             button_select.Enabled = true;
             groupBox1.Enabled = true;
             groupBox2.Enabled = true;
-            numericUpDown_THREADS.Enabled = true;
+            numericUpDown_threads.Enabled = true;
         }
 
         private void button_select_Click(object sender, EventArgs e)
@@ -61,18 +62,19 @@ namespace LZWcompressor
 
                     textBox1.Text = openFileDialog.FileName;
                     AdjustOutputFileName();
-                    button_START.Enabled = true;
+                    button_start.Enabled = true;
                 }
             }
         }
 
-        private void radioButton_actionCMP_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_cmp_CheckedChanged(object sender, EventArgs e)
         {
-            _shouldCompress = radioButton_actionCMP.Checked;
+            _shouldCompress = radioButton_cmp.Checked;
+            checkBox_asm.Enabled = _shouldCompress;
             AdjustOutputFileName();
         }
 
-        private void button_START_Click(object sender, EventArgs e)
+        private void button_start_Click(object sender, EventArgs e)
         {
             if (!_shouldCompress && !fileValidForDecompression())
             {
@@ -84,7 +86,7 @@ namespace LZWcompressor
             progressBar.Value = 0;
             _seconds = 0;
             label_timer.Text = "0 s";
-            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_ASM.Checked, (int)numericUpDown_THREADS.Value);
+            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_asm.Checked, checkBox_cstring.Checked, (int)numericUpDown_threads.Value);
             backgroundWorker1.RunWorkerAsync();
             timer1.Start();
             timer2.Start();
@@ -115,15 +117,22 @@ namespace LZWcompressor
             }
 
             BackgroundWorker worker = sender as BackgroundWorker;
+            _stopwatch = new Stopwatch();
+            _stopwatch.Reset();
+            _stopwatch.Start();
             _wrappedController.work();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            progressBar.Value = progressBar.Maximum;
+            _stopwatch.Stop();
             timer1.Stop();
             timer2.Stop();
-            MessageBox.Show("Finished in " + _seconds.ToString() + " seconds.", "LZWcompressor");
+            progressBar.Value = progressBar.Maximum;
+
+            TimeSpan timeSpan = _stopwatch.Elapsed;
+            MessageBox.Show("Finished in " + timeSpan.ToString(@"hh\:mm\:ss\.ffff") + "\n(that is " + timeSpan.TotalSeconds.ToString() + " seconds).", "LZWcompressor");
+            label_timer.Text = timeSpan.TotalSeconds.ToString() + " s";
             _wrappedController = null;
             EnableControls();
         }
@@ -146,6 +155,11 @@ namespace LZWcompressor
             }
 
             progressBar.Value = _wrappedController.getProgress();
+        }
+
+        private void checkBox_cstring_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox_asm.Enabled = checkBox_cstring.Checked;
         }
     }
 }
