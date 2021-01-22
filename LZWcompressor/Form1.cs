@@ -150,11 +150,6 @@ namespace LZWcompressor
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (_wrappedController == null)
-            {
-                throw new ArgumentNullException(nameof(_wrappedController));
-            }
-
             progressBar.Value = _wrappedController.getProgress();
         }
 

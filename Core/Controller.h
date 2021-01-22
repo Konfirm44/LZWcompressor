@@ -1,5 +1,6 @@
 #pragma once
 #include "LZW.h"
+#include <atomic>
 #include <filesystem>
 namespace fs = std::filesystem;
 
@@ -9,10 +10,12 @@ private:
 	bool shouldCompress_;
 	bool useASM_;
 	bool useCstrings_;
-	int threads_;
+	int threadCount_;
 
-	std::uintmax_t processedBytes_ = 0;
+	std::atomic<std::uintmax_t> processedBytes_ = 0;
 	std::uintmax_t fileSize_ = 0;
+
+	std::vector<char> compressWithThreads(char* buffer, size_t bufferCount);
 
 public:
 	Controller(const char* fileName, bool shouldCompress, bool useASM, bool useCstrings, int threads)
@@ -20,7 +23,7 @@ public:
 		, shouldCompress_(shouldCompress)
 		, useASM_(useASM) 
 		, useCstrings_(useCstrings)
-		, threads_(threads)
+		, threadCount_(threads)
 	{
 		fs::path path = filePath_;
 		fileSize_ = fs::file_size(path);
@@ -30,7 +33,8 @@ public:
 
 	int progress() 
 	{ 
-		int progress = floor(float(processedBytes_) / float(fileSize_) * 100.f);
-		return progress > 100 ? 100 : progress; 
+		float bytes = float(processedBytes_.load());
+		int progress = floor(bytes / fileSize_ * 100.f) ;
+		return progress > 100 ? 100 : progress;
 	}
 };

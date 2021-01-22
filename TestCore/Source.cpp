@@ -29,8 +29,8 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "shak";
+	std::string file = "firstSix";
 
-	//process(1, file);
+	process(1, file);
 	process(0, file);
 }

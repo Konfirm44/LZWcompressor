@@ -4,8 +4,16 @@
 #include <iostream>
 #include <memory>
 
-std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::uintmax_t& processedBytes, bool useASM, bool useCstrings)
+void addProgress(std::atomic<std::uintmax_t>* processedBytes, unsigned progress)
 {
+    auto t = processedBytes->load();
+    t += progress;
+    processedBytes->store(t);
+}
+
+std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<std::uintmax_t>* processedBytes, bool useASM, bool useCstrings)
+{
+
     std::unique_ptr<Dictionary> dictionaryPtr;
     if (useCstrings)
         dictionaryPtr = std::make_unique<Dictionary_ASM>(useASM);
@@ -17,15 +25,12 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::uintmax_
     std::string s;
 
     s += iChunk[0];
-    ++processedBytes;
+//    ++processedBytes;
+    //addProgress(processedBytes, 1);
     for (auto i = 1; i < iChunk.size(); ++i)
     {
-        ++processedBytes;
-        
-#ifdef _DEBUG
-        if (processedBytes % 1000 == 0)
-            std::cout << processedBytes << "\t" << dictionary.size() << std::endl;
-#endif // _DEBUG
+//        ++processedBytes;
+        //addProgress(processedBytes, 1);
 
         char c = iChunk[i];
         if (dictionary.contains(s + c))
@@ -41,6 +46,7 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::uintmax_
                 compressed.push_back(dictionary.code(s));
                 compressed.push_back(dictionary.flush());
                 iChunk.erase(iChunk.begin(), iChunk.begin() + i + 1);
+                addProgress(processedBytes, i + 1);
                 return compressed;
             }
             s = c;
@@ -48,11 +54,12 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::uintmax_
     }
     compressed.push_back(dictionary.code(s));
 
+    addProgress(processedBytes, iChunk.size());
     iChunk.clear();
     return compressed;
 }
 
-std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM, bool useCstrings)
+std::vector<char> LZW::compress(std::vector<char> iChunk, std::atomic<std::uintmax_t>* processedBytes, bool useASM, bool useCstrings)
 {
     std::vector<unsigned short> compressed;
     do
@@ -67,7 +74,7 @@ std::vector<char> LZW::compress(std::vector<char> iChunk, std::uintmax_t& proces
 }
 
 
-std::string subdecompress(std::vector<unsigned short>& compressed, std::uintmax_t& processedBytes, bool useASM, bool useCstrings)
+std::string subdecompress(std::vector<unsigned short>& compressed, std::atomic<std::uintmax_t>* processedBytes, bool useASM, bool useCstrings)
 {
     std::unique_ptr<Dictionary> dictionaryPtr;
     if (useCstrings)
@@ -81,21 +88,26 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::uintmax_
     unsigned short currCode;
 
     prevWord = dictionary[compressed[0]];
-    ++processedBytes;
+
+    //processedBytes += 2;
+    //addProgress(processedBytes, 2);
+
     decompressed += prevWord;
     for (auto i = 1; i < compressed.size(); ++i)
     {
-        processedBytes += 2;
+        //processedBytes += 2;
+        //addProgress(processedBytes, 2);
 
-#ifdef _DEBUG
-        if (processedBytes % 1000 == 0)
-            std::cout << processedBytes << " \t" << dictionary.size() << std::endl;
-#endif // _DEBUG
+//#ifdef _DEBUG
+//        if (processedBytes % 1000 == 0)
+//            std::cout << processedBytes << " \t" << dictionary.size() << std::endl;
+//#endif // _DEBUG
 
         currCode = compressed[i];
         if (currCode == dictionary.flushCode)
         {
             compressed.erase(compressed.begin(), compressed.begin() + i + 1);
+            addProgress(processedBytes, i);
             return decompressed;
         }
 
@@ -113,11 +125,12 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::uintmax_
         decompressed += currWord;
         prevWord = currWord;
     }
+    addProgress(processedBytes, compressed.size());
     compressed.clear();
     return decompressed;
 }
 
-std::vector<char> LZW::decompress(std::vector<char> iChunk, std::uintmax_t& processedBytes, bool useASM, bool useCstrings)
+std::vector<char> LZW::decompress(std::vector<char> iChunk, std::atomic<std::uintmax_t>* processedBytes, bool useASM, bool useCstrings)
 {
     unsigned short* shortPtr = reinterpret_cast<unsigned short*>(iChunk.data());
     std::vector<unsigned short> compressed(shortPtr, shortPtr + iChunk.size() / 2);
