@@ -9,7 +9,7 @@ void process(bool shouldCompress, std::string file)
 	std::string dir = "C:/ZZZ/";
 	std::string ext = shouldCompress ? ".txt" : ".txt_cmp";
 	std::string full = dir + file + ext;
-	int threads = 1;
+	int threads = 2;
 	bool useASM = true;
 	bool useCstrings = true;
 
@@ -31,6 +31,6 @@ int main()
 {
 	std::string file = "shak";
 
-	process(1, file);
+	//process(1, file);
 	process(0, file);
 }

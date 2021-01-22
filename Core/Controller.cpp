@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <thread>
 #include <vector>
 
 void Controller::processFile()
@@ -13,7 +14,11 @@ void Controller::processFile()
 		return;
 	}
 
-	const size_t bufferSize = 1 << 30;
+	//auto chunkSize = fileSize_ / threads_ + (fileSize_ % threads_ != 0);	// divide and round up
+	//if (!shouldCompress_)
+	//	chunkSize = fileSize_;	// no multithreading for decompression
+
+	const size_t bufferSize = fileSize_ + 1;//= 1 << 30;
 	char* buffer = new char[bufferSize];
 
 	std::string suffix = shouldCompress_ ? "_cmp" : "_decmp";
