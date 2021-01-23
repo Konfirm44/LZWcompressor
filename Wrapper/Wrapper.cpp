@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "Wrapper.h"
 
 Wrapper::WrappedController::WrappedController(String^ fileName, bool shouldCompress, bool useASM, bool useCstrings, int threads)
