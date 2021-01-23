@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Wrapper;
 
@@ -54,15 +55,19 @@ namespace LZWcompressor
             {
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (!string.IsNullOrEmpty(textBox1.Text))
+                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                    if (fileInfo.Length == 0)
+                    {
+                        MessageBox.Show("Selected file is empty.", "LZWcompressor");
+                    }
+                    else
                     {
                         progressBar.Value = 0;
                         label_timer.Text = "";
+                        textBox1.Text = openFileDialog.FileName;
+                        AdjustOutputFileName();
+                        button_start.Enabled = true;
                     }
-
-                    textBox1.Text = openFileDialog.FileName;
-                    AdjustOutputFileName();
-                    button_start.Enabled = true;
                 }
             }
         }
