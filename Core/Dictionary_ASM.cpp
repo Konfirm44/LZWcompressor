@@ -2,6 +2,11 @@
 #include <cstring>
 
 extern "C" bool contains_ASM(char** words, const char* str, unsigned words_size, unsigned* index);
+// Assembly language implementation of the Dictionary_ASM::contains() method.
+// char** words - array of C-strings to search in
+// const char* str - C-string to search for
+// unsigned words_size - size of the array
+// unsigned* index - variable where the index of the found element will be placed
 
 constexpr auto sizeLimit = Dictionary_ASM::flushCode - 1;
 

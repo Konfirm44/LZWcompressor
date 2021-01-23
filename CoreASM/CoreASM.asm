@@ -1,4 +1,9 @@
 .code
+
+;// Returns 1 in RAX if the C-string arguments are equal, else returns 0.
+;// char* str1 - C-string to be compared (not null)
+;// char* str2 - C-string to be compared (not null)
+
 streq_ASM proc
 ; streqASM(char* str1, char* str2)
 ; str1 RCX
@@ -23,6 +28,15 @@ streq_ASM proc
 	streqRet:
 	ret
 streq_ASM endp
+
+
+;// Assembly language implementation of the Dictionary_ASM::contains() method.
+;// Returns true if the dictionary contains the word.
+
+;// char** words - array of C-strings to search in (not null)
+;// const char* str - C-string to search for (not null)
+;// unsigned words_size - size of the array
+;// unsigned* index - variable where the index of the found element will be placed (not null)
 
 contains_ASM proc
 ; bool contains_ASM(char** words, const char* s, unsigned size, unsigned* index)
@@ -58,7 +72,7 @@ contains_ASM proc
 
 	foundIt:
 	mov [r9], ecx	; *index = iterator
-;	mov rax, 1		; return 1
+;	mov rax, 1		; return 1				redundant - foundIt is jumped to when rax is already 1
 
 	finish:
 	pop rbp

@@ -6,7 +6,7 @@ class Dictionary_CPP : public Dictionary
 private:
 	std::vector<std::string> words;
     unsigned short indexOfLastCheckedWord_ = 0;
-    bool useASM_ = false;   // not implemented yet
+    bool useASM_ = false;   // not implemented
 
 public:
     Dictionary_CPP(bool useASM);

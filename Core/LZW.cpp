@@ -1,6 +1,7 @@
 #include "LZW.h"
 #include "Dictionary_ASM.h"
 #include "Dictionary_CPP.h"
+
 #include <iostream>
 #include <memory>
 
@@ -25,13 +26,8 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<s
     std::string s;
 
     s += iChunk[0];
-//    ++processedBytes;
-    //addProgress(processedBytes, 1);
     for (auto i = 1; i < iChunk.size(); ++i)
     {
-//        ++processedBytes;
-        //addProgress(processedBytes, 1);
-
         char c = iChunk[i];
         if (dictionary.contains(s + c))
         {
@@ -88,21 +84,9 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::atomic<s
     unsigned short currCode;
 
     prevWord = dictionary[compressed[0]];
-
-    //processedBytes += 2;
-    //addProgress(processedBytes, 2);
-
     decompressed += prevWord;
     for (auto i = 1; i < compressed.size(); ++i)
     {
-        //processedBytes += 2;
-        //addProgress(processedBytes, 2);
-
-//#ifdef _DEBUG
-//        if (processedBytes % 1000 == 0)
-//            std::cout << processedBytes << " \t" << dictionary.size() << std::endl;
-//#endif // _DEBUG
-
         currCode = compressed[i];
         if (currCode == dictionary.flushCode)
         {
