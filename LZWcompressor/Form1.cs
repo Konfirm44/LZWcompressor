@@ -138,7 +138,7 @@ namespace LZWcompressor
 
             TimeSpan timeSpan = _stopwatch.Elapsed;
             MessageBox.Show("Finished in " + timeSpan.ToString(@"hh\:mm\:ss\.ffff") + "\n(that is " + timeSpan.TotalSeconds.ToString() + " seconds).", "LZWcompressor");
-            label_timer.Text = timeSpan.TotalSeconds.ToString("0.##") + " s";
+            label_timer.Text = timeSpan.TotalSeconds.ToString("0.###") + " s";
             _wrappedController = null;
             EnableControls();
         }
