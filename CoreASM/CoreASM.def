@@ -1,5 +1,4 @@
-LIBRARY "CoreASM""
+LIBRARY "CoreASM"
 
 EXPORTS 
-MyProc1
-MyProc2
+contains_ASM

@@ -9,7 +9,7 @@ void process(bool shouldCompress, std::string file)
 	std::string dir = "C:/ZZZ/";
 	std::string ext = shouldCompress ? ".txt" : ".txt_cmp";
 	std::string full = dir + file + ext;
-	int threads = 2;
+	int threads = 1;
 	bool useASM = true;
 	bool useCstrings = true;
 
