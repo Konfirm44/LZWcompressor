@@ -126,7 +126,7 @@ namespace LZWcompressor
             _stopwatch = new Stopwatch();
             _stopwatch.Reset();
             _stopwatch.Start();
-            _wrappedController.work();
+            _wrappedController.processFile();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

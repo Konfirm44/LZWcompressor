@@ -4,7 +4,7 @@ Wrapper::WrappedController::WrappedController(String^ fileName, bool shouldCompr
     : ManagedObject(new Controller(string_to_char_array(fileName), shouldCompress, useASM, useCstrings, threads))
 {}
 
-void Wrapper::WrappedController::work()
+void Wrapper::WrappedController::processFile()
 {
     unmanagedObject_->processFile();
 }

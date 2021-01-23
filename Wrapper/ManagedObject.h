@@ -3,6 +3,8 @@ using namespace System;
 using namespace System::Runtime::InteropServices;
 
 namespace Wrapper {
+
+	// Template class for wrapping unmanaged C++ objects for C++/CLI.
 	template<class T>
 	public ref class ManagedObject
 	{
@@ -23,11 +25,6 @@ namespace Wrapper {
 		!ManagedObject()
 		{
 			delete unmanagedObject_;
-		}
-
-		T* GetInstance()
-		{
-			return unmanagedObject_;
 		}
 
 		static const char* string_to_char_array(String^ string)
