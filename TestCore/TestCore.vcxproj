@@ -148,9 +148,6 @@
       <Project>{e5ce3466-b534-4192-bdb5-c89fa89c9172}</Project>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="log.csv" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
