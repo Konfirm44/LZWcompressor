@@ -1,4 +1,14 @@
-﻿using System;
+﻿/**
+ * Algorytm kompresji LZW
+ * 
+ * Tomasz Sitek, gr. 3
+ * Języki Asemblerowe, sekcja 2
+ * informatyka SSI 2020/2021, semestr zimowy
+ * 
+ * wersja 1.0
+ */
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -46,7 +56,7 @@ namespace LZWcompressor
             button_select.Enabled = true;
             groupBox1.Enabled = true;
             groupBox2.Enabled = true;
-            numericUpDown_threads.Enabled = true;
+            numericUpDown_threads.Enabled = radioButton_cmp.Checked;
         }
 
         private void button_select_Click(object sender, EventArgs e)
@@ -75,7 +85,7 @@ namespace LZWcompressor
         private void radioButton_cmp_CheckedChanged(object sender, EventArgs e)
         {
             _shouldCompress = radioButton_cmp.Checked;
-            checkBox_asm.Enabled = _shouldCompress;
+            checkBox_asm.Enabled = _shouldCompress && checkBox_cstring.Checked;
             numericUpDown_threads.Enabled = _shouldCompress;
             AdjustOutputFileName();
         }
@@ -160,7 +170,7 @@ namespace LZWcompressor
 
         private void checkBox_cstring_CheckedChanged(object sender, EventArgs e)
         {
-            checkBox_asm.Enabled = checkBox_cstring.Checked;
+            checkBox_asm.Enabled = checkBox_cstring.Checked && _shouldCompress;
         }
     }
 }

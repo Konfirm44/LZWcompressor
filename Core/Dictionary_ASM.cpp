@@ -1,3 +1,13 @@
+/**
+ * Algorytm kompresji LZW
+ *
+ * Tomasz Sitek, gr. 3
+ * Jêzyki Asemblerowe, sekcja 2
+ * informatyka SSI 2020/2021, semestr zimowy
+ *
+ * wersja 1.0
+ */
+
 #include "Dictionary_ASM.h"
 #include <cstring>
 
@@ -7,6 +17,8 @@ extern "C" bool contains_ASM(char** words, const char* str, unsigned words_size,
 // const char* str - C-string to search for
 // unsigned words_size - size of the array
 // unsigned* index - variable where the index of the found element will be placed
+
+
 
 constexpr auto sizeLimit = Dictionary_ASM::flushCode - 1;
 

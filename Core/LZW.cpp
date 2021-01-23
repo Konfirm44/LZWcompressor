@@ -1,3 +1,13 @@
+/**
+ * Algorytm kompresji LZW
+ *
+ * Tomasz Sitek, gr. 3
+ * Jêzyki Asemblerowe, sekcja 2
+ * informatyka SSI 2020/2021, semestr zimowy
+ *
+ * wersja 1.0
+ */
+
 #include "LZW.h"
 #include "Dictionary_ASM.h"
 #include "Dictionary_CPP.h"
