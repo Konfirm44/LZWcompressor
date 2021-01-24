@@ -24,6 +24,7 @@ namespace LZWcompressor
         private int _seconds;
         private Stopwatch _stopwatch;
 
+
         public Form1()
         {
             InitializeComponent();
@@ -111,7 +112,7 @@ namespace LZWcompressor
         private bool fileValidForDecompression()
         {
             String fileName = textBox1.Text;
-            int index = fileName.IndexOf("_");
+            int index = fileName.LastIndexOf("_");
             if (index == -1)
             {
                 return false;
@@ -147,10 +148,53 @@ namespace LZWcompressor
             progressBar.Value = progressBar.Maximum;
 
             TimeSpan timeSpan = _stopwatch.Elapsed;
-            MessageBox.Show("Finished in " + timeSpan.ToString(@"hh\:mm\:ss\.ffff") + "\n(that is " + timeSpan.TotalSeconds.ToString() + " seconds).", "LZWcompressor");
+            LogDetails(timeSpan);
+
+            MessageBox.Show("Finished in "+ timeSpan.TotalSeconds.ToString() + " seconds.", "LZWcompressor");
             label_timer.Text = timeSpan.TotalSeconds.ToString("0.###") + " s";
             _wrappedController = null;
             EnableControls();
+        }
+
+        private void LogDetails(TimeSpan timeSpan)
+        {
+            string path = @"log.csv";
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    sw.Write("date;");
+                    sw.Write("inputFile;");
+                    sw.Write("shouldCompress;");
+                    sw.Write("useASM;");
+                    sw.Write("useCstrings;");
+                    sw.Write("threadCount;");
+                    sw.Write("timeSpan;");
+                    sw.WriteLine("outputSize");
+                }
+            }
+
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                DateTime dateTime = DateTime.Now;
+                sw.Write(dateTime);
+                sw.Write(";");
+                sw.Write(@textBox1.Text);
+                sw.Write(";");
+                sw.Write(_shouldCompress);
+                sw.Write(";");
+                sw.Write(checkBox_asm.Checked);
+                sw.Write(";");
+                sw.Write(checkBox_cstring.Checked);
+                sw.Write(";");
+                sw.Write(numericUpDown_threads.Value);
+                sw.Write(";");
+                sw.Write(timeSpan.TotalMilliseconds);
+                sw.Write(";");
+
+                FileInfo fileInfo = new FileInfo(@textBox2.Text);
+                sw.WriteLine(fileInfo.Length);
+            }
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -165,7 +209,8 @@ namespace LZWcompressor
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            progressBar.Value = _wrappedController.getProgress();
+            if (_wrappedController != null)
+                progressBar.Value = _wrappedController.getProgress();
         }
 
         private void checkBox_cstring_CheckedChanged(object sender, EventArgs e)

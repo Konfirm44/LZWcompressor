@@ -15,6 +15,8 @@
 #include <iostream>
 #include <memory>
 
+constexpr auto SUBPROGRESS_LIMIT = 100;
+
 void addProgress(std::atomic<std::uintmax_t>* processedBytes, unsigned progress)
 {
     auto t = processedBytes->load();
@@ -24,7 +26,6 @@ void addProgress(std::atomic<std::uintmax_t>* processedBytes, unsigned progress)
 
 std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<std::uintmax_t>* processedBytes, bool useASM, bool useCstrings)
 {
-
     std::unique_ptr<Dictionary> dictionaryPtr;
     if (useCstrings)
         dictionaryPtr = std::make_unique<Dictionary_ASM>(useASM);
@@ -35,9 +36,18 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<s
     std::vector<unsigned short> compressed;
     std::string s;
 
+    unsigned subProgress = 1;
+
     s += iChunk[0];
     for (auto i = 1; i < iChunk.size(); ++i)
     {
+        ++subProgress;
+        if (subProgress % SUBPROGRESS_LIMIT == 0)
+        {
+            addProgress(processedBytes, subProgress);
+            subProgress = 0;
+        }
+
         char c = iChunk[i];
         if (dictionary.contains(s + c))
         {
@@ -52,7 +62,8 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<s
                 compressed.push_back(dictionary.code(s));
                 compressed.push_back(dictionary.flush());
                 iChunk.erase(iChunk.begin(), iChunk.begin() + i + 1);
-                addProgress(processedBytes, i + 1);
+                //addProgress(processedBytes, i + 1);
+                addProgress(processedBytes, subProgress);
                 return compressed;
             }
             s = c;
@@ -60,7 +71,8 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<s
     }
     compressed.push_back(dictionary.code(s));
 
-    addProgress(processedBytes, iChunk.size());
+    //addProgress(processedBytes, iChunk.size());
+    addProgress(processedBytes, subProgress);
     iChunk.clear();
     return compressed;
 }
@@ -93,15 +105,25 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::atomic<s
     std::string currWord, prevWord;
     unsigned short currCode;
 
+    unsigned subProgress = 2;
+
     prevWord = dictionary[compressed[0]];
     decompressed += prevWord;
     for (auto i = 1; i < compressed.size(); ++i)
     {
+        subProgress += 2;
+        if (subProgress % SUBPROGRESS_LIMIT == 0)
+        {
+            addProgress(processedBytes, subProgress);
+            subProgress = 0;
+        }
+
         currCode = compressed[i];
         if (currCode == dictionary.flushCode)
         {
             compressed.erase(compressed.begin(), compressed.begin() + i + 1);
-            addProgress(processedBytes, i);
+            //addProgress(processedBytes, i);
+            addProgress(processedBytes, subProgress);
             return decompressed;
         }
 
@@ -119,7 +141,8 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::atomic<s
         decompressed += currWord;
         prevWord = currWord;
     }
-    addProgress(processedBytes, compressed.size());
+    //addProgress(processedBytes, compressed.size());
+    addProgress(processedBytes, subProgress);
     compressed.clear();
     return decompressed;
 }
