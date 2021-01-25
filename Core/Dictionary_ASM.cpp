@@ -11,6 +11,8 @@
 #include "Dictionary_ASM.h"
 #include <cstring>
 
+constexpr auto sizeLimit = Dictionary_ASM::flushCode - 1;
+
 extern "C" bool contains_ASM(char** words, const char* str, unsigned words_size, unsigned* index);
 // Assembly language implementation of the Dictionary_ASM::contains() method.
 // char** words - array of C-strings to search in
@@ -18,18 +20,30 @@ extern "C" bool contains_ASM(char** words, const char* str, unsigned words_size,
 // unsigned words_size - size of the array
 // unsigned* index - variable where the index of the found element will be placed
 
-
-
-constexpr auto sizeLimit = Dictionary_ASM::flushCode - 1;
+extern "C" void dictionaryInit_ASM(char** words);
+// Assembly language implementation of a section of the Dictionary_ASM constructor.
+// Fills the "words" array of allocated C-strings with the initial 256 words of an LZW dictionary.
+// char** words - array of C-strings with 256 allocated elements, each 2 characters long
 
 Dictionary_ASM::Dictionary_ASM(bool useASM) : useASM_(useASM)
 {
-    for (auto i = 0; i < 256; ++i)
+    if (useASM)
     {
-        char* str = new char[2];
-        str[0] = i;
-        str[1] = 0;
-        words_.push_back(str);
+        for (auto i = 0; i < 256; ++i)
+        {
+            words_.emplace_back(new char[2]);
+        }
+        dictionaryInit_ASM(words_.data());
+    }
+    else
+    {
+        for (auto i = 0; i < 256; ++i)
+        {
+            char* str = new char[2];
+            str[0] = i;
+            str[1] = 0;
+            words_.push_back(str);
+        }
     }
 }
 

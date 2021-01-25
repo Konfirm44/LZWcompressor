@@ -39,7 +39,7 @@ void process(bool shouldCompress, std::string file)
 
 int main()
 {
-	std::string file = "firstSix";
+	std::string file = "gh";
 
 	process(1, file);
 	process(0, file);
