@@ -86,7 +86,7 @@ namespace LZWcompressor
         private void radioButton_cmp_CheckedChanged(object sender, EventArgs e)
         {
             _shouldCompress = radioButton_cmp.Checked;
-            checkBox_asm.Enabled = _shouldCompress && checkBox_cstring.Checked;
+            //checkBox_asm.Enabled = _shouldCompress && checkBox_cstring.Checked;
             numericUpDown_threads.Enabled = _shouldCompress;
             AdjustOutputFileName();
         }

@@ -246,7 +246,7 @@ namespace LZWcompressor
             this.numericUpDown_threads.Location = new System.Drawing.Point(436, 54);
             this.numericUpDown_threads.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown_threads.Maximum = new decimal(new int[] {
-            16,
+            64,
             0,
             0,
             0});
