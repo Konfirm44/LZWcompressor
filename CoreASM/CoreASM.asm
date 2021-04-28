@@ -1,13 +1,3 @@
-;/**
-; * Algorytm kompresji LZW
-; * 
-; * Tomasz Sitek, gr. 3
-; * Jêzyki Asemblerowe, sekcja 2
-; * informatyka SSI 2020/2021, semestr zimowy
-; * 
-; * wersja 1.0
-; */
-
 .code
 
 ;// Returns 1 in RAX if the C-string arguments are equal, else returns 0.
