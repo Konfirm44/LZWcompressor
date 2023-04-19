@@ -63,59 +63,7 @@ namespace LZWcompressor
             numericUpDown_threads.Enabled = radioButton_cmp.Checked;
         }
 
-#pragma warning disable IDE1006 // Naming Styles - shut up, that's how winforms likes it
-
-        private void button_select_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
-                    if (fileInfo.Length == 0)
-                    {
-                        MessageBox.Show("Selected file is empty.", "LZWcompressor");
-                    }
-                    else
-                    {
-                        progressBar.Value = 0;
-                        label_timer.Text = "";
-                        textBox1.Text = openFileDialog.FileName;
-                        AdjustOutputFileName();
-                        button_start.Enabled = true;
-                    }
-                }
-            }
-        }
-
-        private void radioButton_cmp_CheckedChanged(object sender, EventArgs e)
-        {
-            _shouldCompress = radioButton_cmp.Checked;
-            //checkBox_asm.Enabled = _shouldCompress && checkBox_cstring.Checked;
-            numericUpDown_threads.Enabled = _shouldCompress;
-            AdjustInputFileName();
-            AdjustOutputFileName();
-        }
-
-        private void button_start_Click(object sender, EventArgs e)
-        {
-            if (!_shouldCompress && !fileValidForDecompression())
-            {
-                MessageBox.Show("Selected file cannot be decompressed (name lacks the '_cmp' suffix).", "LZWcompressor");
-                return;
-            }
-
-            DisableControls();
-            progressBar.Value = 0;
-            _seconds = 0;
-            label_timer.Text = "0 s";
-            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_asm.Checked, checkBox_cstring.Checked, (int)numericUpDown_threads.Value);
-            backgroundWorker1.RunWorkerAsync();
-            timer1.Start();
-            timer2.Start();
-        }
-
-        private bool fileValidForDecompression()
+        private bool IsFileValidForDecompression()
         {
             string fileName = textBox1.Text;
             int index = fileName.LastIndexOf("_");
@@ -125,35 +73,6 @@ namespace LZWcompressor
             }
             string suffix = fileName.Substring(index);
             return suffix == "_cmp";
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            if (_wrappedController == null)
-            {
-                throw new ArgumentNullException(nameof(_wrappedController));
-            }
-
-            _stopwatch = new Stopwatch();
-            _stopwatch.Reset();
-            _stopwatch.Start();
-            _wrappedController.processFile();
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            _stopwatch.Stop();
-            timer1.Stop();
-            timer2.Stop();
-            progressBar.Value = progressBar.Maximum;
-
-            TimeSpan timeSpan = _stopwatch.Elapsed;
-            LogDetails(timeSpan);
-
-            MessageBox.Show("Finished in "+ timeSpan.TotalSeconds.ToString() + " seconds.", "LZWcompressor");
-            label_timer.Text = timeSpan.TotalSeconds.ToString("0.###") + " s";
-            _wrappedController = null;
-            EnableControls();
         }
 
         private void LogDetails(TimeSpan timeSpan)
@@ -195,6 +114,86 @@ namespace LZWcompressor
                 FileInfo fileInfo = new FileInfo(@textBox2.Text);
                 sw.WriteLine(fileInfo.Length);
             }
+        }
+
+#pragma warning disable IDE1006 // Naming Styles - shut up, that's how winforms likes it
+
+        private void button_select_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                    if (fileInfo.Length == 0)
+                    {
+                        MessageBox.Show("Selected file is empty.", "LZWcompressor");
+                    }
+                    else
+                    {
+                        progressBar.Value = 0;
+                        label_timer.Text = "";
+                        textBox1.Text = openFileDialog.FileName;
+                        AdjustOutputFileName();
+                        button_start.Enabled = true;
+                    }
+                }
+            }
+        }
+
+        private void radioButton_cmp_CheckedChanged(object sender, EventArgs e)
+        {
+            _shouldCompress = radioButton_cmp.Checked;
+            numericUpDown_threads.Enabled = _shouldCompress;
+            AdjustInputFileName();
+            AdjustOutputFileName();
+        }
+
+        private void button_start_Click(object sender, EventArgs e)
+        {
+            if (!_shouldCompress && !IsFileValidForDecompression())
+            {
+                MessageBox.Show("Selected file cannot be decompressed (name lacks the '_cmp' suffix).", "LZWcompressor");
+                return;
+            }
+
+            DisableControls();
+            progressBar.Value = 0;
+            _seconds = 0;
+            label_timer.Text = "0 s";
+            _wrappedController = new WrappedController(textBox1.Text, _shouldCompress, checkBox_asm.Checked, checkBox_cstring.Checked, (int)numericUpDown_threads.Value);
+            backgroundWorker1.RunWorkerAsync();
+            timer1.Start();
+            timer2.Start();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            if (_wrappedController == null)
+            {
+                throw new ArgumentNullException(nameof(_wrappedController));
+            }
+
+            _stopwatch = new Stopwatch();
+            _stopwatch.Reset();
+            _stopwatch.Start();
+            _wrappedController.processFile();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            _stopwatch.Stop();
+            timer1.Stop();
+            timer2.Stop();
+            progressBar.Value = progressBar.Maximum;
+
+            TimeSpan timeSpan = _stopwatch.Elapsed;
+            LogDetails(timeSpan);
+
+            MessageBox.Show("Finished in "+ timeSpan.TotalSeconds.ToString() + " seconds.", "LZWcompressor");
+            label_timer.Text = timeSpan.TotalSeconds.ToString("0.###") + " s";
+            _wrappedController = null;
+            EnableControls();
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
