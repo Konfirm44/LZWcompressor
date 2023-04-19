@@ -104,7 +104,6 @@ void Controller::processFile()
 	}
 
 	iFile.read(buffer, bufferSize);
-	bool b = (bool)iFile;
 	size_t bufferCount = iFile.gcount();
 	std::cout << "Read " << bufferCount << " bytes." << std::endl;
 
