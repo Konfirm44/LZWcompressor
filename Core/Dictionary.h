@@ -30,4 +30,5 @@ public:
     // Code used to indicate that the translation process had reset/must reset the dictionary.
     static const unsigned short flushCode = 65535;
 
+    virtual ~Dictionary() {};
 };
