@@ -26,6 +26,17 @@ namespace LZWcompressor
             numericUpDown_threads.Value = threads;
         }
 
+        private void AdjustInputFileName()
+        {
+            if (!_shouldCompress && !string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                if (!textBox1.Text.EndsWith("_cmp"))
+                {
+                    textBox1.Text += "_cmp";
+                }
+            }
+        }
+
         private void AdjustOutputFileName()
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
@@ -82,6 +93,7 @@ namespace LZWcompressor
             _shouldCompress = radioButton_cmp.Checked;
             //checkBox_asm.Enabled = _shouldCompress && checkBox_cstring.Checked;
             numericUpDown_threads.Enabled = _shouldCompress;
+            AdjustInputFileName();
             AdjustOutputFileName();
         }
 
