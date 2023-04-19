@@ -20,7 +20,7 @@ std::vector<unsigned short> subcompress(std::vector<char>& iChunk, std::atomic<s
     if (useCstrings)
         dictionaryPtr = std::make_unique<Dictionary_ASM>(useASM);
     else
-        dictionaryPtr = std::make_unique<Dictionary_CPP>(useASM);
+        dictionaryPtr = std::make_unique<Dictionary_CPP>();
     Dictionary& dictionary = *dictionaryPtr;
 
     std::vector<unsigned short> compressed;
@@ -86,7 +86,7 @@ std::string subdecompress(std::vector<unsigned short>& compressed, std::atomic<s
     if (useCstrings)
         dictionaryPtr = std::make_unique<Dictionary_ASM>(useASM);
     else
-        dictionaryPtr = std::make_unique<Dictionary_CPP>(useASM);
+        dictionaryPtr = std::make_unique<Dictionary_CPP>();
     Dictionary& dictionary = *dictionaryPtr;
 
     std::string decompressed;
