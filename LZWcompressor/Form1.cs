@@ -29,7 +29,9 @@ namespace LZWcompressor
         private void AdjustOutputFileName()
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
+            {
                 textBox2.Text = textBox1.Text + (_shouldCompress ? "_cmp" : "_decmp");
+            }
         }
 
         private void DisableControls()
@@ -49,6 +51,8 @@ namespace LZWcompressor
             groupBox2.Enabled = true;
             numericUpDown_threads.Enabled = radioButton_cmp.Checked;
         }
+
+#pragma warning disable IDE1006 // Naming Styles - shut up, that's how winforms likes it
 
         private void button_select_Click(object sender, EventArgs e)
         {
@@ -101,19 +105,14 @@ namespace LZWcompressor
 
         private bool fileValidForDecompression()
         {
-            String fileName = textBox1.Text;
+            string fileName = textBox1.Text;
             int index = fileName.LastIndexOf("_");
             if (index == -1)
             {
                 return false;
             }
-            String suffix = fileName.Substring(index);
-            if (suffix == "_cmp")
-            {
-                return true;
-            }
-
-            return false;
+            string suffix = fileName.Substring(index);
+            return suffix == "_cmp";
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -123,7 +122,6 @@ namespace LZWcompressor
                 throw new ArgumentNullException(nameof(_wrappedController));
             }
 
-            BackgroundWorker worker = sender as BackgroundWorker;
             _stopwatch = new Stopwatch();
             _stopwatch.Reset();
             _stopwatch.Start();
@@ -200,7 +198,9 @@ namespace LZWcompressor
         private void timer2_Tick(object sender, EventArgs e)
         {
             if (_wrappedController != null)
+            {
                 progressBar.Value = _wrappedController.getProgress();
+            }
         }
 
         private void checkBox_cstring_CheckedChanged(object sender, EventArgs e)
