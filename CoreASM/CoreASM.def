@@ -1,0 +1,5 @@
+LIBRARY "CoreASM"
+
+EXPORTS 
+contains_ASM
+dictionaryInit_ASM
