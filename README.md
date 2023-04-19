@@ -6,6 +6,6 @@ The algorithm is implemented in C++, along with an optional secondary x64 Assemb
 
 ## Setup
 
-Open the solution in Visual Studio: `LZWcompressor\LZWcompressor.sln`.
+Open the solution in Visual Studio: `LZWcompressor\LZWcompressor.sln`. Select the `x64` configuration, build the solution and run it.
 
 For easier debugging of the **Core** library, set the **TestCore** project as Startup Project in Visual Studio.
